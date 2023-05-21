@@ -1,0 +1,24 @@
+.popup__input {
+  margin: 0;
+  padding: 0 0 9px;
+  border: 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-height: 25px;
+  background-color: transparent;
+  font-size: 14px;
+  line-height: 17px;
+  text-overflow: ellipsis;
+  flex-shrink: 0;
+}
+
+.popup__input::placeholder {
+  color: #C4C4C4;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.popup__input:focus {
+  outline: none;
+  border-bottom-color: #000000;
+}

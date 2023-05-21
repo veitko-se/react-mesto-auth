@@ -1,0 +1,29 @@
+.popup__container {
+  margin: auto;
+  position: relative;
+  padding: 34px 36px 37px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: white;
+  color: black;
+  width: 430px;
+  aspect-ratio: 43/33;
+  border: none;
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+.popup__container:hover  {
+  cursor: auto;
+}
+
+
+@media screen and (max-width: 635.98px) {
+  .popup__container {
+    padding: 24px 22px;
+    width: 282px;
+    aspect-ratio: 141/161;
+  }
+}

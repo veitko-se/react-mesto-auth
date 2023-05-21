@@ -1,0 +1,10 @@
+.popup__container_type_photo {
+  padding: 0;
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  aspect-ratio: auto;
+  width: max-content;
+  height: max-content;
+  background-color: transparent;
+}

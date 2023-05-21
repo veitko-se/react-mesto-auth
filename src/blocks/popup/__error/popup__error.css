@@ -1,0 +1,13 @@
+.popup__error {
+  font-size: 12px;
+  line-height: 1;
+  color: #FF0000;
+  opacity: 0;
+  transition: 0.3s;
+  min-height: 24px;
+  max-height: calc((100vh - 400px - 30px*2) / 2);
+  margin: 6px 0 0;
+  padding: 0;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

@@ -1,0 +1,34 @@
+.profile__edit-btn {
+  background-color: transparent;
+  width: 24px;
+  aspect-ratio: 1/1;
+  box-sizing: border-box;
+  border: #FFFFFF solid 1px;
+  background-image: url('../../../images/edit-btn.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 10px;
+  grid-area: edit-btn;
+  cursor: pointer;
+  transition: opacity .4s ease-out;
+}
+
+.profile__edit-btn:hover {
+  color: #FFFFFF;
+  opacity: .6;
+}
+
+@media screen and (max-width: 635.98px) {
+  .profile__edit-btn {
+    width: 18px;
+    background-size: 50% 50%;
+  }
+}
+
+/*свойство align-items: baseline поддерживается,
+но отрабатывает в мозилле не так, как ожидается*/
+@-moz-document url-prefix() {
+  .profile__edit-btn {
+    align-self: center;
+  }
+}
