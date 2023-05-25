@@ -22,11 +22,11 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
 
   return (
     <PopupWithForm name="profile" isOpen={isOpen} onClose={onClose} title="Редактировать профиль" buttonText="Сохранить" onSubmit={handleSubmit}>
-      <label className="popup__field">
+      <label className="form__field">
         <input
           aria-label="Имя"
           type="text"
-          className="popup__input"
+          className="form__input"
           id="input-profile-name"
           placeholder="Имя"
           required
@@ -36,13 +36,13 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
           value={values.name}
           onChange={handleChange}
         />
-        <span className="popup__error" id="input-profile-name-error"></span>
+        <span className="form__error" id="input-profile-name-error"></span>
       </label>
-      <label className="popup__field">
+      <label className="form__field">
         <input
           aria-label="О себе"
           type="text"
-          className="popup__input"
+          className="form__input"
           id="input-profile-job"
           placeholder="О себе"
           required
@@ -52,7 +52,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser}) {
           value={values.description}
           onChange={handleChange}
         />
-        <span className="popup__error" id="input-profile-job-error"></span>
+        <span className="form__error" id="input-profile-job-error"></span>
       </label>
     </PopupWithForm>
   )

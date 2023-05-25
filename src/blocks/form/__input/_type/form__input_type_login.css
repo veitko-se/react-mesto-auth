@@ -1,0 +1,12 @@
+.form__input_type_login {
+  border-bottom: 2px solid #CCCCCC;
+  color: #FFFFFF;
+}
+
+.form__input_type_login::placeholder {
+  color: #CCCCCC;
+}
+
+.form__input_type_login:focus {
+  border-bottom-color: #FFFFFF;
+}

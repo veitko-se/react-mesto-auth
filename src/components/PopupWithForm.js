@@ -4,9 +4,9 @@ function PopupWithForm({isOpen, onClose, onSubmit, name, title, buttonText, chil
   return (
     <Popup isOpen={isOpen} name={name} onClose={onClose}>
       <h2 className={`popup__title popup__title_type_${name}`}>{title}</h2>
-      <form className="popup__form" name={name} id={`form-${name}`} onSubmit={onSubmit}>
+      <form className="form" name={name} id={`form-${name}`} onSubmit={onSubmit}>
         {children}
-        <button type="submit" className="popup__save-btn">{buttonText}</button>
+        <button type="submit" className="form__save-btn">{buttonText}</button>
       </form>
     </Popup>
   );

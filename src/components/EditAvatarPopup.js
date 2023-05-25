@@ -18,18 +18,18 @@ function EditAvatarPopup ({isOpen, onClose, onUpdateAvatar}) {
 
   return (
     <PopupWithForm name="avatar" isOpen={isOpen} onClose={onClose} title="Обновить аватар" buttonText="Сохранить" onSubmit={handleSubmit}>
-      <label className="popup__field">
+      <label className="form__field">
         <input
           aria-label="Ссылка на аватар"
           type="url"
-          className="popup__input"
+          className="form__input"
           id="input-avatar-link"
           placeholder="Ссылка на аватар"
           required
           name="avatar"
           ref={avatarRef}
         />
-        <span className="popup__error" id="input-avatar-link-error"></span>
+        <span className="form__error" id="input-avatar-link-error"></span>
       </label>
     </PopupWithForm>
   )

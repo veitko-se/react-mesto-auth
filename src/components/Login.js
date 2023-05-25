@@ -6,7 +6,6 @@ import useForm from '../hooks/useForm';
 function Login({handleLogin}) {
 
   const {values, handleChange, setValues} = useForm({email: '', password: ''});
-
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -26,51 +25,43 @@ function Login({handleLogin}) {
   };
 
   return (
-    <section className="sign">
-
-          <h2 className="sign__title">Вход</h2>
-
-          <form className="sign__form" onSubmit={handleSubmit} >
-
-              <label className="sign__field">
-                <input
-                  aria-label="Email"
-                  type="text"
-                  className="sign__input"
-                  id="input-signin-email"
-                  placeholder="Email"
-                  required
-                  name="email"
-                  minLength="2"
-                  maxLength="40"
-                  value={values.email}
-                  onChange={handleChange}
-                />
-                <span className="sign__error" id="input-signin-email-error"></span>
-              </label>
-              <label className="sign__field">
-                <input
-                  aria-label="Пароль"
-                  type="password"
-                  className="sign__input"
-                  id="input-signin-password"
-                  placeholder="Пароль"
-                  required
-                  name="password"
-                  minLength="2"
-                  maxLength="40"
-                  value={values.password}
-                  onChange={handleChange}
-                />
-                <span className="sign__error" id="input-signin-password-error"></span>
-              </label>
-
-            <button type="submit" className="sign__save-btn">Войти</button>
-            {/* <div className="login__signup">
-              <p>Ещё не зарегистрированы?</p>
-              <Link to="/register" className="signup__link">Зарегистрироваться</Link>
-            </div> */}
-          </form>
+    <section className="login">
+      <h2 className="login__title">Вход</h2>
+      <form className="form form_type_login" onSubmit={handleSubmit} >
+          <label className="form__field">
+            <input
+              aria-label="Email"
+              type="text"
+              className="form__input form__input_type_login"
+              id="input-signin-email"
+              placeholder="Email"
+              required
+              name="email"
+              minLength="2"
+              maxLength="40"
+              value={values.email}
+              onChange={handleChange}
+            />
+            <span className="form__error" id="input-signin-email-error"></span>
+          </label>
+          <label className="form__field">
+            <input
+              aria-label="Пароль"
+              type="password"
+              className="form__input form__input_type_login"
+              id="input-signin-password"
+              placeholder="Пароль"
+              required
+              name="password"
+              minLength="2"
+              maxLength="40"
+              value={values.password}
+              onChange={handleChange}
+            />
+            <span className="form__error" id="input-signin-password-error"></span>
+          </label>
+        <button type="submit" className="form__save-btn form_save-btn_type_login">Войти</button>
+      </form>
     </section>
   )
 }

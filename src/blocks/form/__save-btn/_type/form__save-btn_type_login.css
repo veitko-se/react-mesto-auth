@@ -1,0 +1,16 @@
+.form_save-btn_type_login {
+  margin: 185px 0 0;
+  color: #000;
+  background-color: #FFFFFF;
+}
+
+.form_save-btn_type_login:hover {
+  color: #000;
+  opacity: .85;
+}
+
+@media screen and (max-width: 635.98px) {
+  .form_save-btn_type_login {
+    margin: 142px 0 0;
+  }
+}

@@ -20,11 +20,11 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
 
   return (
     <PopupWithForm name="place" isOpen={isOpen} onClose={onClose} title="Новое место" buttonText="Создать" onSubmit={handleSubmit}>
-      <label className="popup__field">
+      <label className="form__field">
         <input
           aria-label="Название"
           type="text"
-          className="popup__input"
+          className="form__input"
           id="input-place-name"
           placeholder="Название"
           required
@@ -34,13 +34,13 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
           value={values.name}
           onChange={handleChange}
         />
-        <span className="popup__error" id="input-place-name-error"></span>
+        <span className="form__error" id="input-place-name-error"></span>
       </label>
-      <label className="popup__field">
+      <label className="form__field">
         <input
           aria-label="Ссылка на картинку"
           type="url"
-          className="popup__input"
+          className="form__input"
           id="input-place-link"
           placeholder="Ссылка на картинку"
           required
@@ -48,7 +48,7 @@ function AddPlacePopup({isOpen, onClose, onAddPlace}) {
           value={values.link}
           onChange={handleChange}
         />
-        <span className="popup__error" id="input-place-link-error"></span>
+        <span className="form__error" id="input-place-link-error"></span>
       </label>
     </PopupWithForm>
   )

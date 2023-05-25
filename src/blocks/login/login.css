@@ -1,0 +1,16 @@
+.login {
+  margin: auto;
+  padding: 60px 0 112px; /*60px 0 80px;*/
+  display: block;
+  color: white;
+  width: 358px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+@media screen and (max-width: 635.98px) {
+  .login {
+    padding: 40px 0;
+    width: 260px;
+  }
+}
