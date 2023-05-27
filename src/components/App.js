@@ -1,4 +1,4 @@
-import React from 'react';
+import {useState, useEffect} from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
@@ -8,31 +8,31 @@ import EditProfilePopup  from './EditProfilePopup';
 import EditAvatarPopup   from './EditAvatarPopup';
 import AddPlacePopup   from './AddPlacePopup';
 import api from '../utils/api';
-import { CurrentUserContext, user } from '../contexts/CurrentUserContext';
-import {BrowserRouter, Route, Routes, Navigate, useNavigate} from 'react-router-dom';
-import InfoTooltip from './InfoTooltip';
+import {CurrentUserContext, user} from '../contexts/CurrentUserContext';
+import {Route, Routes, Navigate, useNavigate} from 'react-router-dom';
 import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
 import auth from '../auth.js';
 
 function App() {
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
-  const [currentUser, setCurrentUser] = React.useState(user.loadUser);
-  const [cards , setCards] = React.useState([]);
-  const [stateLoading, setState] = React.useState(true);
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+  const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState({});
+  const [currentUser, setCurrentUser] = useState(user.loadUser);
+  const [cards, setCards] = useState([]);
+  const [stateLoading, setState] = useState(true);
   const navigate = useNavigate();
-  const [loggedIn, setLoggedIn] = React.useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState('');
 
-  React.useEffect(() => {
+ useEffect(() => {
     handleTokenCheck();
   }, [])
 
-  React.useEffect(() => {
+ useEffect(() => {
     Promise.all([api.loadUserInfo(), api.loadInitialCards()])
     .then(([newUserInfo, initialCards]) => {
       setCurrentUser(newUserInfo)
@@ -115,21 +115,23 @@ function App() {
     .catch(err => console.log(`Ошибка: ${err}`));
   }
 
-  function handleLogin() {
+  function handleLogin(email) {
+    setEmail(email);
     setLoggedIn(true);
   }
 
-  const handleTokenCheck = () => {
+  function handleTokenCheck() {
     if (localStorage.getItem('token')){
       const token = localStorage.getItem('token');
-      if (token) {
+      if (token&&(token!=='undefined')) {
         auth.checkToken(token)
-        .then((res) => {
-          if (res) {
-            setLoggedIn(true);
+        .then((data) => {
+          if (data) {
+            handleLogin(data.email);
             navigate('/', {replace: true})
           }
-        });
+        })
+        .catch(err => console.log(`Ошибка: ${err}`));
       };
     };
   }
@@ -137,11 +139,9 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
-
-        <Header />
-
+        <Header login={email} />
         <Routes>
-          <Route path="*" element={<Navigate to="/sign-up"/>}/>
+          <Route path="*" element={<Navigate to="/sign-in"/>}/>
           <Route path="/" element={
             <ProtectedRoute element={Main} loggedIn={loggedIn}
               onEditProfile={handleEditProfileClick}
@@ -163,7 +163,6 @@ function App() {
         <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace ={handleAddPlaceSubmit} />
         <ImagePopup name="photo" card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
         <PopupWithForm name="confirm" /*isOpen={}*/ onClose={closeAllPopups} title="Вы уверены?" buttonText="Да" />
-
       </div>
     </CurrentUserContext.Provider>
   );

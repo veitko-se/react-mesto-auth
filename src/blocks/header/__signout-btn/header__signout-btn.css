@@ -1,0 +1,18 @@
+.header__signout-btn {
+  color: #A9A9A9;
+  background-color: transparent;
+  border: none;
+  transition: opacity .4s ease-out;
+  padding: 0 0 0 24px;
+}
+
+.header__signout-btn:hover {
+  opacity: .6;
+}
+
+/*Мобильные версии — дополнительное задание. Будет реализовано по макету позже*/
+@media screen and (max-width: 635.98px) {
+  .header__signout-btn {
+    text-align: end;
+  }
+}

@@ -1,0 +1,15 @@
+.popup__title_type_info {
+  padding: 32px 0 0;
+  text-align: center;
+  text-overflow: clip;
+  white-space: normal;
+  overflow: visible;
+}
+
+@media screen and (max-width: 635.98px) {
+  .popup__title_type_info {
+    padding: 40px 0 0;
+    font-size: 20px;
+    line-height: 24px;
+  }
+}

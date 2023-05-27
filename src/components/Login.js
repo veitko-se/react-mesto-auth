@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import auth from '../auth.js';
 import useForm from '../hooks/useForm';
 
@@ -8,20 +7,20 @@ function Login({handleLogin}) {
   const {values, handleChange, setValues} = useForm({email: '', password: ''});
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  function handleSubmit(evt) {
+    evt.preventDefault();
     if (!values.email || !values.password){
       return;
     }
     auth.authorize(values.email, values.password)
-      .then((data) => {
-        if (data.token){
-          setValues({email: '', password: ''});
-          handleLogin();
-          navigate('/', {replace: true});
-        }
-      })
-      .catch(err => console.log(err));
+    .then((data) => {
+      if (data.token){
+        handleLogin(values.email);
+        setValues({email: '', password: ''});
+        navigate('/', {replace: true});
+      }
+    })
+    .catch(err => console.log(`Ошибка: ${err}`));
   };
 
   return (

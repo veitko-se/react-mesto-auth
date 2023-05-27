@@ -1,8 +1,15 @@
 .header__login {
-  font-size: 18px;
-  line-height: 22px;
-  color: #FFFFFF;
   margin: 0;
   padding: 0;
   font-weight: 500;
+}
+
+/*Мобильные версии — дополнительное задание. Будет реализовано по макету позже*/
+@media screen and (max-width: 635.98px) {
+  .header__login {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: end;
+  }
 }

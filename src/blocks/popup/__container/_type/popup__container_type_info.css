@@ -1,0 +1,10 @@
+.popup__container_type_info {
+  justify-content: center;
+}
+
+@media screen and (max-width: 635.98px) {
+  .popup__container_type_info {
+    width: 280px;
+    aspect-ratio: 140/154;
+  }
+}

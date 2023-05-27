@@ -1,9 +1,7 @@
 /** Класс для работы с API сервера */
 class Auth {
-  constructor({ baseUrl, headers }) {
+  constructor(baseUrl) {
     this._baseUrl = baseUrl;
-   // this._authorization = headers.authorization;
-    this._headers = headers;
   }
 
   /** приватный метод - проверка ответа сервера */
@@ -20,11 +18,10 @@ class Auth {
       .then(this._checkResponse)
   }
 
-  /** загрузить данные о пользователе с сервера */
   register(email, password) {
     return this._request(`/signup`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({password, email})
     })
   }
@@ -32,10 +29,10 @@ class Auth {
   authorize(email, password) {
     return this._request(`/signin`, {
       method: 'POST',
-      headers: this._headers,
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({password, email})
     })
-    .then((data) => { console.log(data);
+    .then((data) => {
       if (data.token){
         localStorage.setItem('token', data.token);
         return data;
@@ -51,16 +48,11 @@ class Auth {
         'Authorization': `Bearer ${token}`
       }
     })
+    .then(res => res.data);
   }
 }
 
-/** экземляр класса Api*/
-const auth = new Auth({
-  baseUrl: 'https://auth.nomoreparties.co',
-  headers: {
-    // authorization: 'c024f246-bb18-41cb-8ec3-55e361b94019',
-    'Content-Type': 'application/json'
-  }
-});
+/** экземляр класса*/
+const auth = new Auth('https://auth.nomoreparties.co');
 
 export default auth;
