@@ -2,7 +2,6 @@ import headerLogo from '../images/header-logo.svg';
 import {Link, useNavigate, Route, Routes} from 'react-router-dom';
 
 function Header({login}) {
-
   const navigate = useNavigate();
 
   function onSignOut(){

@@ -1,8 +1,7 @@
-import React from 'react';
+import {useEffect} from 'react';
 
 const Popup = ({isOpen, name, onClose, children}) => {
-
-  React.useEffect(() => {
+  useEffect(() => {
     function closeByEscape(evt) {
       if(evt.key === 'Escape') {
         onClose();
@@ -30,7 +29,6 @@ const Popup = ({isOpen, name, onClose, children}) => {
       </div>
     </section>
   );
-
 };
 
 export default Popup;

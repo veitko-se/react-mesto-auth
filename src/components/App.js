@@ -14,6 +14,7 @@ import Register from './Register';
 import Login from './Login';
 import ProtectedRoute from './ProtectedRoute';
 import auth from '../auth.js';
+import InfoTooltip from './InfoTooltip';
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -27,10 +28,12 @@ function App() {
   const navigate = useNavigate();
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [isRegisterError, setIsRegisterError] = useState(false);
 
  useEffect(() => {
     handleTokenCheck();
-  }, [])
+  }, []);
 
  useEffect(() => {
     Promise.all([api.loadUserInfo(), api.loadInitialCards()])
@@ -65,6 +68,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsImagePopupOpen(false);
     setSelectedCard(null);
+    setIsInfoTooltipOpen(false);
   };
 
   function handleCardLike(card) {
@@ -76,7 +80,7 @@ function App() {
       ));
     })
     .catch(err => console.log(`Ошибка: ${err}`));
-  }
+  };
 
   function handleCardDelete(card) {
     api.deleteCard(card._id)
@@ -86,7 +90,7 @@ function App() {
       ));
     })
     .catch(err => console.log(`Ошибка: ${err}`));
-  }
+  };
 
   function handleUpdateUser(newUserInfo) {
     api.updateUserInfo(newUserInfo)
@@ -95,7 +99,7 @@ function App() {
       closeAllPopups();
     })
     .catch(err => console.log(`Ошибка: ${err}`));
-  }
+  };
 
   function handleUpdateAvatar(newAvatar) {
     api.updateUserAvatar(newAvatar)
@@ -104,7 +108,7 @@ function App() {
       closeAllPopups();
     })
     .catch(err => console.log(`Ошибка: ${err}`));
-  }
+  };
 
   function handleAddPlaceSubmit(newCard) {
     api.pushCard(newCard)
@@ -113,12 +117,12 @@ function App() {
       closeAllPopups();
     })
     .catch(err => console.log(`Ошибка: ${err}`));
-  }
+  };
 
   function handleLogin(email) {
     setEmail(email);
     setLoggedIn(true);
-  }
+  };
 
   function handleTokenCheck() {
     if (localStorage.getItem('token')){
@@ -134,7 +138,36 @@ function App() {
         .catch(err => console.log(`Ошибка: ${err}`));
       };
     };
-  }
+  };
+
+  function onRegister(email, password) {
+    auth.register(email, password)
+    .then(() => {
+      setIsInfoTooltipOpen(true);
+      setIsRegisterError(false);
+      navigate('/sign-in', {replace: true});
+    })
+    .catch(err => {
+      setIsInfoTooltipOpen(true);
+      setIsRegisterError(true);
+      console.log(`Ошибка: ${err}`);
+    });
+  };
+
+  function onLogin(email, password) {
+    auth.authorize(email, password)
+    .then((data) => {
+      if (data.token){
+        handleLogin(email);
+        navigate('/', {replace: true});
+      }
+    })
+    .catch(err => {
+      setIsInfoTooltipOpen(true);
+      setIsRegisterError(true);
+      console.log(`Ошибка: ${err}`);
+    });
+  };
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
@@ -154,8 +187,8 @@ function App() {
               stateLoading={stateLoading}
             />
           } />
-          <Route path="/sign-up" element={<Register />} />
-          <Route path="/sign-in" element={<Login handleLogin={handleLogin} />} />
+          <Route path="/sign-up" element={<Register onRegister={onRegister} />} />
+          <Route path="/sign-in" element={<Login onLogin={onLogin} />} />
         </Routes>
         {loggedIn && <Footer />}
         <EditProfilePopup isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} onUpdateUser={handleUpdateUser} />
@@ -163,6 +196,7 @@ function App() {
         <AddPlacePopup isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} onAddPlace ={handleAddPlaceSubmit} />
         <ImagePopup name="photo" card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups} />
         <PopupWithForm name="confirm" /*isOpen={}*/ onClose={closeAllPopups} title="Вы уверены?" buttonText="Да" />
+        <InfoTooltip name="info" isOpen={isInfoTooltipOpen} onClose={closeAllPopups} isError={isRegisterError} />
       </div>
     </CurrentUserContext.Provider>
   );
